@@ -1,9 +1,9 @@
 [package]
-name = "audiotags-macro"
+name = "audiometa-macro"
 version = "0.2.0"
 authors = ["Tianyi <ShiTianyi2001@outlook.com>"]
 edition = "2021"
-description = "macros used during the development of audiotags"
+description = "macros used during the development of audiometa"
 license = "MIT"
 repository = "https://github.com/TianyiShi2001/audiotags"
 

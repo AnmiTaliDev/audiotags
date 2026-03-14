@@ -1,7 +1,7 @@
-//! [![Crate](https://img.shields.io/crates/v/audiotags.svg)](https://crates.io/crates/audiotags)
-//! [![Crate](https://img.shields.io/crates/d/audiotags.svg)](https://crates.io/crates/audiotags)
-//! [![Crate](https://img.shields.io/crates/l/audiotags.svg)](https://crates.io/crates/audiotags)
-//! [![Documentation](https://docs.rs/audiotags/badge.svg)](https://docs.rs/audiotags/)
+//! [![Crate](https://img.shields.io/crates/v/audiometa.svg)](https://crates.io/crates/audiometa)
+//! [![Crate](https://img.shields.io/crates/d/audiometa.svg)](https://crates.io/crates/audiometa)
+//! [![Crate](https://img.shields.io/crates/l/audiometa.svg)](https://crates.io/crates/audiometa)
+//! [![Documentation](https://docs.rs/audiometa/badge.svg)](https://docs.rs/audiometa/)
 //!
 //! This crate makes it easier to parse, convert and write metadata (a.k.a tag) in audio files of different file types.
 //!
@@ -13,13 +13,13 @@
 //!
 //! ## Performance
 //!
-//! Using **audiotags** incurs a little overhead due to vtables if you want to guess the metadata format
+//! Using **audiometa** incurs a little overhead due to vtables if you want to guess the metadata format
 //! (from file extension). Apart from this the performance is almost the same as directly calling function
 //! provided by those 'specialized' crates.
 //!
 //! No copies will be made if you only need to read and write metadata of one format. If you want to convert
-//! between tags, copying is unavoidable no matter if you use **audiotags** or use getters and setters provided
-//! by specialized libraries. **audiotags** is not making additional unnecessary copies.
+//! between tags, copying is unavoidable no matter if you use **audiometa** or use getters and setters provided
+//! by specialized libraries. **audiometa** is not making additional unnecessary copies.
 //!
 //! ## Supported Formats
 //!
@@ -31,10 +31,10 @@
 //!
 //! ## Examples
 //!
-//! Read the [manual](https://docs.rs/audiotags) for some examples, but here's a quick-one:
+//! Read the [manual](https://docs.rs/audiometa) for some examples, but here's a quick-one:
 //!
 //! ```rust,no_run
-//! use audiotags::{Tag, Picture, MimeType};
+//! use audiometa::{Tag, Picture, MimeType};
 //!
 //! // using `default()` or `new()` alone so that the metadata format is
 //! // guessed (from the file extension) (in this case, Id3v2 tag is read)
@@ -61,7 +61,7 @@
 //! tag.write_to_path("test.mp3").expect("Fail to save");
 //! ```
 
-pub(crate) use audiotags_macro::*;
+pub(crate) use audiometa_macro::*;
 
 pub mod anytag;
 pub use anytag::*;
@@ -92,9 +92,9 @@ pub use std::convert::{TryFrom, TryInto};
 /// # Examples
 ///
 /// ```no_run
-/// use audiotags::{Tag, TagType};
+/// use audiometa::{Tag, TagType};
 ///
-/// # fn main() -> audiotags::Result<()> {
+/// # fn main() -> audiometa::Result<()> {
 /// // Guess the format by default
 /// let mut tag = Tag::new().read_from_path("assets/a.mp3").unwrap();
 /// tag.set_title("Foo");
