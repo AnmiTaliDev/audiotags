@@ -1,9 +1,6 @@
-# audiotags
+# audiometa
 
-[![Crate](https://img.shields.io/crates/v/audiotags.svg)](https://crates.io/crates/audiotags)
-[![Crate](https://img.shields.io/crates/d/audiotags.svg)](https://crates.io/crates/audiotags)
-[![Crate](https://img.shields.io/crates/l/audiotags.svg)](https://crates.io/crates/audiotags)
-[![Documentation](https://docs.rs/audiotags/badge.svg)](https://docs.rs/audiotags/)
+> Fork of [audiotags](https://github.com/TianyiShi2001/audiotags) — the original project is no longer maintained.
 
 This crate makes it easier to parse, convert and write metadata (a.k.a. tag) in audio files of different file types.
 
@@ -15,13 +12,13 @@ metadata in different file formats.
 
 ### Performance
 
-Using **audiotags** incurs a little overhead due to vtables if you want to guess the metadata format
+Using **audiometa** incurs a little overhead due to vtables if you want to guess the metadata format
 (from file extension). Apart from this the performance is almost the same as directly calling function
 provided by those 'specialized' crates.
 
 No copies will be made if you only need to read and write metadata of one format. If you want to convert
-between tags, copying is unavoidable no matter if you use **audiotags** or use getters and setters provided
-by specialized libraries. **audiotags** is not making additional unnecessary copies.
+between tags, copying is unavoidable no matter if you use **audiometa** or use getters and setters provided
+by specialized libraries. **audiometa** is not making additional unnecessary copies.
 
 ### Supported Formats
 
@@ -32,8 +29,6 @@ by specialized libraries. **audiotags** is not making additional unnecessary cop
 | `flac`        | Vorbis comment        | [**metaflac**](https://github.com/jameshurst/rust-metaflac) |
 
 ### Examples
-
-Read the [manual](https://docs.rs/audiotags) for some examples, but here's a quick-one:
 
 ```rust
 fn main() {
