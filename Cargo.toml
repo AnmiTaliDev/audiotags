@@ -1,8 +1,8 @@
 [package]
 name = "audiometa"
 version = "0.5.0"
-authors = ["Tianyi <ShiTianyi2001@outlook.com>", "Pierre de la Martinière <pierre.de.la.martiniere@gmail.com>"]
-edition = "2021"
+authors = ["Tianyi <ShiTianyi2001@outlook.com>", "Pierre de la Martinière <pierre.de.la.martiniere@gmail.com>", "AnmiTaliDev <anmitalidev@nuros.org>"]
+edition = "2024"
 description = "Unified IO for different types of audio metadata"
 license = "MIT"
 repository = "https://github.com/TianyiShi2001/audiotags"
