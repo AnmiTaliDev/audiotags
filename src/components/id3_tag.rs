@@ -1,7 +1,7 @@
+use crate::id3::{Comment, Content, Frame, Picture as Id3Picture, PictureType};
 use crate::*;
-use id3::{self, Content, Frame, TagLike, Timestamp};
 
-pub use id3::Tag as Id3v2InnerTag;
+pub use crate::id3::Tag as Id3v2InnerTag;
 
 impl_tag!(Id3v2Tag, Id3v2InnerTag, TagType::Id3v2);
 
@@ -34,7 +34,7 @@ impl<'a> From<AnyTag<'a>> for Id3v2Tag {
         Self {
             config: inp.config,
             inner: {
-                let mut t = id3::Tag::new();
+                let mut t = Id3v2InnerTag::new();
                 if let Some(v) = inp.title() {
                     t.set_title(v)
                 }
@@ -74,10 +74,10 @@ impl<'a> From<AnyTag<'a>> for Id3v2Tag {
     }
 }
 
-impl<'a> std::convert::TryFrom<&'a id3::frame::Picture> for Picture<'a> {
+impl<'a> std::convert::TryFrom<&'a Id3Picture> for Picture<'a> {
     type Error = crate::Error;
-    fn try_from(inp: &'a id3::frame::Picture) -> crate::Result<Self> {
-        let id3::frame::Picture {
+    fn try_from(inp: &'a Id3Picture) -> crate::Result<Self> {
+        let Id3Picture {
             mime_type, data, ..
         } = inp;
         let mime_type: MimeType = mime_type.as_str().try_into()?;
@@ -153,7 +153,7 @@ impl AudioTagEdit for Id3v2Tag {
     fn album_cover(&self) -> Option<Picture<'_>> {
         self.inner
             .pictures()
-            .find(|&pic| matches!(pic.picture_type, id3::frame::PictureType::CoverFront))
+            .find(|&pic| matches!(pic.picture_type, PictureType::CoverFront))
             .and_then(|pic| {
                 Some(Picture {
                     data: &pic.data,
@@ -163,16 +163,15 @@ impl AudioTagEdit for Id3v2Tag {
     }
     fn set_album_cover(&mut self, cover: Picture) {
         self.remove_album_cover();
-        self.inner.add_frame(id3::frame::Picture {
+        self.inner.add_frame(Id3Picture {
             mime_type: String::from(cover.mime_type),
-            picture_type: id3::frame::PictureType::CoverFront,
+            picture_type: PictureType::CoverFront,
             description: "".to_owned(),
             data: cover.data.to_owned(),
         });
     }
     fn remove_album_cover(&mut self) {
-        self.inner
-            .remove_picture_by_type(id3::frame::PictureType::CoverFront);
+        self.inner.remove_picture_by_type(PictureType::CoverFront);
     }
 
     fn composer(&self) -> Option<&str> {
@@ -248,7 +247,7 @@ impl AudioTagEdit for Id3v2Tag {
         None
     }
     fn set_comment(&mut self, comment: String) {
-        self.inner.add_frame(id3::frame::Comment {
+        self.inner.add_frame(Comment {
             lang: "XXX".to_string(),
             description: "".to_string(),
             text: comment,
@@ -261,11 +260,11 @@ impl AudioTagEdit for Id3v2Tag {
 
 impl AudioTagWrite for Id3v2Tag {
     fn write_to(&mut self, file: &mut File) -> crate::Result<()> {
-        self.inner.write_to(file, id3::Version::Id3v24)?;
+        self.inner.write_to(file)?;
         Ok(())
     }
     fn write_to_path(&mut self, path: &str) -> crate::Result<()> {
-        self.inner.write_to_path(path, id3::Version::Id3v24)?;
+        self.inner.write_to_path(path)?;
         Ok(())
     }
 }

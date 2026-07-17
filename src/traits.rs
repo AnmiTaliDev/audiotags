@@ -1,5 +1,4 @@
 use super::*;
-use id3::Timestamp;
 
 pub trait AudioTag: AudioTagEdit + AudioTagWrite + ToAnyTag {}
 
