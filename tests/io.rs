@@ -1,5 +1,4 @@
-use audiometa::{MimeType, Picture, Tag};
-use id3::Timestamp;
+use audiometa::{MimeType, Picture, Tag, Timestamp};
 use std::ffi::OsString;
 use std::fs;
 use std::path::Path;

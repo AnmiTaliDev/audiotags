@@ -27,7 +27,7 @@ pub enum Error {
     Mp4TagError(#[from] mp4ameta::Error),
 
     #[error(transparent)]
-    Id3TagError(#[from] id3::Error),
+    Id3TagError(#[from] crate::id3::Id3Error),
 
     #[error(transparent)]
     OggTagError(#[from] oggvorbismeta::Error),

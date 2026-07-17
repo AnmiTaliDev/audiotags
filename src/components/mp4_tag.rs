@@ -1,5 +1,4 @@
 use crate::*;
-use id3::Timestamp;
 use mp4ameta::{self, ImgFmt};
 use std::str::FromStr;
 

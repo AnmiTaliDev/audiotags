@@ -1,5 +1,4 @@
 use crate::*;
-use id3::Timestamp;
 use metaflac;
 use std::str::FromStr;
 

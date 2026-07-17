@@ -25,7 +25,7 @@
 //!
 //! | File Format   | Metadata Format       | backend                                                     |
 //! |---------------|-----------------------|-------------------------------------------------------------|
-//! | `mp3`         | id3v2.4               | [**id3**](https://github.com/polyfloyd/rust-id3)            |
+//! | `mp3`         | id3v2.4               | native                                                       |
 //! | `m4a/mp4/...` | MPEG-4 audio metadata | [**mp4ameta**](https://github.com/Saecki/rust-mp4ameta)     |
 //! | `flac`        | Vorbis comment        | [**metaflac**](https://github.com/jameshurst/rust-metaflac) |
 //!
@@ -72,6 +72,8 @@ pub use components::*;
 pub mod error;
 pub use error::{Error, Result};
 
+mod id3;
+
 pub mod traits;
 pub use traits::*;
 
@@ -80,6 +82,9 @@ pub use types::*;
 
 pub mod config;
 pub use config::Config;
+
+pub mod timestamp;
+pub use timestamp::Timestamp;
 
 use std::convert::From;
 use std::fs::File;

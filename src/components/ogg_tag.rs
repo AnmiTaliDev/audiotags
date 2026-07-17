@@ -1,5 +1,4 @@
 use crate::*;
-use id3::Timestamp;
 use oggvorbismeta::{read_comment_header, replace_comment_header, CommentHeader, VorbisComments};
 use std::fs::OpenOptions;
 use std::io::{Cursor, Read, Seek, SeekFrom};

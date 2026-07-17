@@ -1,5 +1,5 @@
 mod id3_tag;
-pub use id3_tag::Id3v2Tag;
+pub use id3_tag::{Id3v2InnerTag, Id3v2Tag};
 mod flac_tag;
 mod mp4_tag;
 mod ogg_tag;
