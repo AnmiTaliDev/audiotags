@@ -180,7 +180,7 @@ impl AudioTagEdit for OggTag {
         self.remove("albumartist");
     }
 
-    fn album_cover(&self) -> Option<Picture> {
+    fn album_cover(&self) -> Option<Picture<'_>> {
         None
     }
     fn set_album_cover(&mut self, _cover: Picture) {}
