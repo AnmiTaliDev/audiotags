@@ -3,6 +3,6 @@ pub use id3_tag::{Id3v2InnerTag, Id3v2Tag};
 mod flac_tag;
 mod mp4_tag;
 mod ogg_tag;
-pub use flac_tag::FlacTag;
+pub use flac_tag::{FlacInnerTag, FlacTag};
 pub use mp4_tag::Mp4Tag;
 pub use ogg_tag::OggTag;

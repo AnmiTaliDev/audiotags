@@ -27,7 +27,7 @@
 //! |---------------|-----------------------|-------------------------------------------------------------|
 //! | `mp3`         | id3v2.4               | native                                                       |
 //! | `m4a/mp4/...` | MPEG-4 audio metadata | [**mp4ameta**](https://github.com/Saecki/rust-mp4ameta)     |
-//! | `flac`        | Vorbis comment        | [**metaflac**](https://github.com/jameshurst/rust-metaflac) |
+//! | `flac`        | Vorbis comment        | native                                                       |
 //!
 //! ## Examples
 //!
@@ -72,6 +72,7 @@ pub use components::*;
 pub mod error;
 pub use error::{Error, Result};
 
+mod flac;
 mod id3;
 
 pub mod traits;

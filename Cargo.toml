@@ -12,7 +12,6 @@ keywords = ["id3", "tag", "tags", "audio", "audiometa"]
 
 [dependencies]
 mp4ameta = "0.11.0"
-metaflac = "0.2.5"
 thiserror = "1.0.50"
 audiometa-macro = { version = "0.2", path = "./audiometa-macro" }
 oggvorbismeta = "0.2.0"

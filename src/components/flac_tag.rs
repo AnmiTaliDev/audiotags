@@ -1,8 +1,8 @@
+use crate::flac::PictureType;
 use crate::*;
-use metaflac;
 use std::str::FromStr;
 
-pub use metaflac::Tag as FlacInnerTag;
+pub use crate::flac::Tag as FlacInnerTag;
 
 impl_tag!(FlacTag, FlacInnerTag, TagType::Flac);
 
@@ -45,7 +45,7 @@ impl<'a> From<AnyTag<'a>> for FlacTag {
 
 impl<'a> From<&'a FlacTag> for AnyTag<'a> {
     fn from(inp: &'a FlacTag) -> Self {
-        let tag = Self {
+        Self {
             title: inp.title(),
             artists: inp.artists(),
             date: inp.date(),
@@ -62,29 +62,19 @@ impl<'a> From<&'a FlacTag> for AnyTag<'a> {
             composer: inp.composer(),
             comment: inp.comment(),
             ..Self::default()
-        };
-
-        tag
+        }
     }
 }
 
 impl FlacTag {
     pub fn get_first(&self, key: &str) -> Option<&str> {
-        if let Some(Some(v)) = self.inner.vorbis_comments().map(|c| c.get(key)) {
-            if !v.is_empty() {
-                Some(v[0].as_str())
-            } else {
-                None
-            }
-        } else {
-            None
-        }
+        self.inner.vorbis_comments().and_then(|c| c.get_first(key))
     }
     pub fn set_first(&mut self, key: &str, val: &str) {
-        self.inner.vorbis_comments_mut().set(key, vec![val]);
+        self.inner.vorbis_comments_mut().set(key, val);
     }
-    pub fn remove(&mut self, k: &str) {
-        self.inner.vorbis_comments_mut().comments.remove(k);
+    pub fn remove(&mut self, key: &str) {
+        self.inner.vorbis_comments_mut().remove(key);
     }
 }
 
@@ -144,9 +134,7 @@ impl AudioTagEdit for FlacTag {
     }
 
     fn duration(&self) -> Option<f64> {
-        self.inner
-            .get_streaminfo()
-            .map(|s| s.total_samples as f64 / f64::from(s.sample_rate))
+        self.inner.duration()
     }
 
     fn album_title(&self) -> Option<&str> {
@@ -172,7 +160,7 @@ impl AudioTagEdit for FlacTag {
     fn album_cover(&self) -> Option<Picture<'_>> {
         self.inner
             .pictures()
-            .find(|&pic| matches!(pic.picture_type, metaflac::block::PictureType::CoverFront))
+            .find(|&pic| matches!(pic.picture_type, PictureType::CoverFront))
             .and_then(|pic| {
                 Some(Picture {
                     data: &pic.data,
@@ -183,13 +171,12 @@ impl AudioTagEdit for FlacTag {
     fn set_album_cover(&mut self, cover: Picture) {
         self.remove_album_cover();
         let mime = String::from(cover.mime_type);
-        let picture_type = metaflac::block::PictureType::CoverFront;
+        let picture_type = PictureType::CoverFront;
         self.inner
             .add_picture(mime, picture_type, (cover.data).to_owned());
     }
     fn remove_album_cover(&mut self) {
-        self.inner
-            .remove_picture_type(metaflac::block::PictureType::CoverFront)
+        self.inner.remove_picture_type(PictureType::CoverFront)
     }
 
     fn composer(&self) -> Option<&str> {

@@ -21,7 +21,7 @@ pub enum Error {
     NotAPicture,
 
     #[error(transparent)]
-    FlacTagError(#[from] metaflac::Error),
+    FlacTagError(#[from] crate::flac::FlacError),
 
     #[error(transparent)]
     Mp4TagError(#[from] mp4ameta::Error),

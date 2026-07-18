@@ -9,15 +9,15 @@ fn test_inner() {
 
     let tmp_path = tmp.path();
 
-    let mut innertag = metaflac::Tag::default();
-    let title = "title from metaflac::Tag";
+    let mut innertag = FlacInnerTag::default();
+    let title = "title from FlacInnerTag";
     let artist = "Billy Foo";
     let album_artist = "Billy Foo & The Bars";
-    innertag.vorbis_comments_mut().set_title(vec![title]);
-    innertag.vorbis_comments_mut().set_artist(vec![artist]);
+    innertag.vorbis_comments_mut().set("TITLE", title);
+    innertag.vorbis_comments_mut().set("ARTIST", artist);
     innertag
         .vorbis_comments_mut()
-        .set_album_artist(vec![album_artist]);
+        .set("ALBUMARTIST", album_artist);
 
     let tag: FlacTag = innertag.into();
     let mut id3tag = tag.to_dyn_tag(TagType::Id3v2);
